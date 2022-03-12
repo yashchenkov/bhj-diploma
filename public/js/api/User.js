@@ -8,8 +8,13 @@ class User {
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
-  static setCurrent(user) {
 
+ 
+
+  static URL = '/user';
+
+  static setCurrent(user) {
+    localStorage.setItem('user', user);
   }
 
   /**
@@ -17,7 +22,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    localStorage.removeItem('user');
   }
 
   /**
@@ -25,7 +30,7 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    return localStorage.getItem('user');
   }
 
   /**
@@ -33,7 +38,21 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-
+    const obj = {
+      url: this.URl + '/current',
+      method: 'GET',
+      callback: (err, response) => {
+        if (response && response.user) {
+          let user = {
+            id: response.user.id,
+            name: response.user.name
+          }
+          this.setCurrent(user);
+        }
+        callback(err, response);
+      }
+    }
+    createRequest(obj);
   }
 
   /**
@@ -64,7 +83,22 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-
+    const obj = {
+      url: this.URl + '/register',
+      data: data,
+      method: 'POST',
+      callback: (err, response) => {
+        if (response.success) {
+          let user = {
+            id: response.user.id,
+            name: response.user.name
+          }
+          this.setCurrent(user);
+        }
+        callback(err, response);
+      }
+    }
+    createRequest(obj);
   }
 
   /**
@@ -72,6 +106,20 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout(callback) {
-
+    const obj = {
+      url: this.URl + '/logout',
+      method: 'POST',
+      callback: (err, response) => {
+        if (response.success) {
+          let user = {
+            id: response.user.id,
+            name: response.user.name
+          }
+          this.unsetCurrent(user);
+        }
+        callback(err, response);
+      }
+    }
+    createRequest(obj);
   }
 }
