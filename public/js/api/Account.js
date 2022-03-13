@@ -10,13 +10,10 @@ class Account extends Entity {
   static URL = '/account'; 
 
   static get(id = '', callback){
-    let obj = {
-      url: this.URL,
-      data: id,
+    creqteRequest({
+      url: this.URL + '/' + id,
       method: 'GET',
       callback: callback
-    }
-
-    creqteRequest(obj);
+    });
   }
 }

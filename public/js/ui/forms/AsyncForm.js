@@ -12,8 +12,14 @@ class AsyncForm {
    * Сохраняет переданный элемент и регистрирует события
    * через registerEvents()
    * */
+  element;
   constructor(element) {
-
+    if(element !== undefined) {
+      this.element = element;
+      this.registerEvents();
+    } else {
+      throw new Error('Не выбрана форма отправки');
+    }
   }
 
   /**
@@ -21,7 +27,10 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-
+    this.element.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.submit();
+    })
   }
 
   /**
@@ -32,7 +41,16 @@ class AsyncForm {
    * }
    * */
   getData() {
+    let obj = {};
+    const form = new FormData(element),
+    entries = form.entries();
 
+    for (let item of entries) {
+      const key = item[ 0 ],
+      value = item[ 1 ];
+      obj.key = value;
+    }
+    return obj;
   }
 
   onSubmit(options){
@@ -44,6 +62,6 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-
+    this.onSubmit(this.getData());
   }
 }
