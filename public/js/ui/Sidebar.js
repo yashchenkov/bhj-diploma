@@ -40,12 +40,10 @@ class Sidebar {
     const logout = document.querySelector('.menu-item_logout');
 
     login.addEventListener('click', () => {
-      const modal = new Modal(App.getModal('login'))
-      modal.open();
+      App.getModal('login').open();
     });
     reg.addEventListener('click', () => {
-      const modal = new Modal(App.getModal('register'))
-      modal.open();
+      App.getModal('register').open();
     });
     logout.addEventListener('click', () => {
       User.logout((err, response) => {

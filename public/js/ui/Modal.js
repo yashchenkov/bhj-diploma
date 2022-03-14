@@ -13,14 +13,13 @@ class Modal {
    * */
 
 
-  element;
+
   constructor(element){
-    if(element !== undefined) {
-      this.element = element;
-      this.registerEvents();
-    } else {
-      throw new Error('Не выбрано модальное окно!')
+    if(!element) {
+      throw new Error('Не передано модальное окно!')
     }
+    this.element = element;
+    this.registerEvents();
   }
 
   /**
@@ -29,9 +28,9 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    for(let i = 0; i < element.children.length; i++) {
-      if(element.children[i].dataset.dismiss === 'modal') {
-        element.children[i].addEventListener('click', (e) => {
+    for(let i = 0; i < this.element.querySelectorAll('button').length; i++) {
+      if(this.element.querySelectorAll('button')[i].dataset.dismiss === 'modal') {
+        this.element.querySelectorAll('button')[i].addEventListener('click', (e) => {
           this.onClose(e);
         })
       }

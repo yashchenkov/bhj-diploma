@@ -84,11 +84,29 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
+    const obj = {
+      url: this.URL + '/register',
+      data: data,
+      method: 'POST',
+      callback: (err, response) => {
+        console.log(err, response);
+        if (response.success) {
+          let user = {
+            id: response.user.id,
+            name: response.user.name
+          }
+          this.setCurrent(user);
+        }
+        callback(err, response);
+      }
+    };
+    console.log(obj);
     createRequest({
       url: this.URl + '/register',
       data: data,
       method: 'POST',
       callback: (err, response) => {
+        console.log(err, response);
         if (response.success) {
           let user = {
             id: response.user.id,

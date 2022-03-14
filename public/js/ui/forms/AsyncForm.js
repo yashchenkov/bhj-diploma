@@ -12,14 +12,13 @@ class AsyncForm {
    * Сохраняет переданный элемент и регистрирует события
    * через registerEvents()
    * */
-  element;
+
   constructor(element) {
-    if(element !== undefined) {
-      this.element = element;
-      this.registerEvents();
-    } else {
+    if(!element) {
       throw new Error('Не выбрана форма отправки');
     }
+    this.element = element;
+    this.registerEvents();
   }
 
   /**
@@ -42,13 +41,13 @@ class AsyncForm {
    * */
   getData() {
     let obj = {};
-    const form = new FormData(element),
+    const form = new FormData(this.element),
     entries = form.entries();
 
     for (let item of entries) {
       const key = item[ 0 ],
       value = item[ 1 ];
-      obj.key = value;
+      obj[key] = value;
     }
     return obj;
   }
