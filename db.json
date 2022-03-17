@@ -5,6 +5,12 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1"
+    },
+    {
+      "name": "коля",
+      "email": "fgf@fgf.ru",
+      "password": "lolpop",
+      "id": "3pdp6pkyfl0trpxbr"
     }
   ],
   "accounts": [
@@ -22,6 +28,26 @@
       "name": "Бизнес",
       "user_id": "1",
       "id": "3"
+    },
+    {
+      "name": "сбер",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "id": "3pdp6pk1bxl0v9rr4x"
+    },
+    {
+      "name": "втб",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "id": "3pdp6pk1c4l0v9s6i8"
+    },
+    {
+      "name": "тинк",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "id": "3pdp6pk1h2l0vagab2"
+    },
+    {
+      "name": "сельхоз банк",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "id": "3pdp6pk2n7l0vchcvj"
     }
   ],
   "transactions": [

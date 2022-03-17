@@ -39,7 +39,7 @@ class User {
    * */
   static fetch(callback) {
     const obj = {
-      url: this.URl + '/current',
+      url: this.URL + '/current',
       method: 'GET',
       callback: (err, response) => {
         if (response && response.user) {
@@ -84,25 +84,8 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-    const obj = {
-      url: this.URL + '/register',
-      data: data,
-      method: 'POST',
-      callback: (err, response) => {
-        console.log(err, response);
-        if (response.success) {
-          let user = {
-            id: response.user.id,
-            name: response.user.name
-          }
-          this.setCurrent(user);
-        }
-        callback(err, response);
-      }
-    };
-    console.log(obj);
     createRequest({
-      url: this.URl + '/register',
+      url: this.URL + '/register',
       data: data,
       method: 'POST',
       callback: (err, response) => {
@@ -125,13 +108,14 @@ class User {
    * */
   static logout(callback) {
     createRequest({
-      url: this.URl + '/logout',
+      url: this.URL + '/logout',
       method: 'POST',
       callback: (err, response) => {
+        console.log(response);
         if (response.success) {
           let user = {
-            id: response.user.id,
-            name: response.user.name
+            id: localStorage.user.id,
+            name: localStorage.user.name
           }
           this.unsetCurrent(user);
         }
