@@ -38,7 +38,7 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-    const obj = {
+    createRequest({
       url: this.URL + '/current',
       method: 'GET',
       callback: (err, response) => {
@@ -52,8 +52,7 @@ class User {
         }
         callback(err, response);
       }
-    }
-    createRequest(obj);
+    });
   }
 
   /**

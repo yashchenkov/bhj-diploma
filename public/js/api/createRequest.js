@@ -2,41 +2,32 @@
  * Основная функция для совершения запросов
  * на сервер.
  * */
+
 const createRequest = (options = {}) => {
+    //console.log(options);
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    let str = '?';
+    let str = '';
+    let formData = new FormData();
     try {
-        if('data' in options) {
-            if(options.method === 'GET') {
-                for(key in options.data) {
-                    str += key + '=' + options.data[key] + '&';
-                }
-                str = str.substring(0, str.length - 1);
-                xhr.open('GET', options.url + str);
-                xhr.send();
-            } else {
-                let formData = new FormData();
-                for(key in options.data) {
-                    formData.append(key, options.data[key]);
-                }
-                xhr.open(options.method, options.url);
-                xhr.send(formData);
+        if(options.method === 'GET' && 'data' in options) {
+            str = '?';
+            for(key in options.data) {
+                str += key + '=' + options.data[key] + '&';
             }
-        } else {
-            if(options.method === 'GET') {
-                xhr.open('GET', options.url);
-                xhr.send();
-            } else {
-                const formData = new FormData()
-                xhr.open(options.method, options.url);
-                xhr.send(formData);
+            str = str.substring(0, str.length - 1);
+        } else if(options.method !== 'GET' && 'data' in  options) {
+            for(key in options.data) {
+                formData.append(key, options.data[key]);
             }
-        } 
+        }
     } catch(err) {
         console.log(err);
     }
+    xhr.open(options.method, options.url + str);
+    xhr.send(options.method === 'GET' ? null : formData);
     xhr.addEventListener('load', () => {
          options.callback(xhr.error, xhr.response);
     })
 };
+
