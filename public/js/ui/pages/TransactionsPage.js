@@ -33,8 +33,8 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-    const btnAcc = document.querySelector('.remove-account');
-    const btnTrans = document.querySelectorAll('.trasaction__remove');
+    const btnAcc = this.element.querySelector('.remove-account');
+    const btnTrans = this.element.querySelectorAll('.trasaction__remove');
 
     btnTrans.forEach(elem => {
       elem.addEventListener('click', this.removeTransaction(elem.dataset.id))
@@ -52,7 +52,7 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-    if(this.lastOptions !== undefined) {
+    if(this.lastOptions) {
       const result = window.confirm('Вы действительно хотите удалить счет?');
       if(result) {
         Account.remove({
@@ -93,20 +93,23 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render(options){
-    console.log(options);
-    if(options !== undefined) {
+    //console.log(options);
+    if(options) {
       this.lastOptions = options;
       Account.get(options.account_id, (err, response) => {
-        console.log(response);
+        //console.log(response);
         if(response.success) {
-          this.renderTitle(response.name);
+          this.renderTitle(response.data.name);
         }
       });
+      console.log(User.fetch())
+      //вот тут непонятно, как нужный объект передать, так как нигде не хранится пароль
       Transaction.list({
         email: User.current().email,
-        password: User.current.password
+        password: User.current().password
       }, (err, response) => {
         if(response) {
+          console.log(response);
           this.renderTransactions(response.data);
         }
       })
@@ -128,7 +131,7 @@ class TransactionsPage {
    * Устанавливает заголовок в элемент .content-title
    * */
   renderTitle(name){
-    const title = document.querySelector('.content-title');
+    const title = this.element.querySelector('.content-title');
     title.textContent = name;
   }
 
@@ -173,6 +176,7 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
+    console.log(item);
     let trClass;
     if(item.type.toLowerCase() === 'exprense') {
       trClass = 'transaction_expense';
@@ -180,8 +184,7 @@ class TransactionsPage {
       trClass = 'transaction_income'
     }
 
-    return
-     `<div class="transaction ${trClass} row">
+   const data = `<div class="transaction ${trClass} row">
           <div class="col-md-7 transaction__details">
             <div class="transaction__icon">
                 <span class="fa fa-money fa-2x"></span>
@@ -204,7 +207,9 @@ class TransactionsPage {
                   <i class="fa fa-trash"></i>  
               </button>
           </div>
-       </div>`
+       </div>`;
+
+       return data;
   }
 
   /**

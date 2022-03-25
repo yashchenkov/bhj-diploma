@@ -11,6 +11,7 @@ class Entity {
    * */
   static URL = '';
 
+ 
   static list(data, callback){
     createRequest({
       url: this.URL,

@@ -212,6 +212,42 @@
       "account_id": "3pdp6pk1bxl0v9rr4x",
       "user_id": "3pdp6pkyfl0trpxbr",
       "created_at": "2022-03-24T18:53:19.924Z"
+    },
+    {
+      "id": "3pdp6pk37rl16ltb60",
+      "type": "expense",
+      "name": "покупка",
+      "sum": 1000,
+      "account_id": "3pdp6pk1bxl0v9rr4x",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "created_at": "2022-03-25T15:54:24.839Z"
+    },
+    {
+      "id": "3pdp6pk38el16ltpxx",
+      "type": "expense",
+      "name": "покупка",
+      "sum": 1000,
+      "account_id": "3pdp6pk1bxl0v9rr4x",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "created_at": "2022-03-25T15:54:43.988Z"
+    },
+    {
+      "id": "3pdp6pk3acl16lzdtv",
+      "type": "income",
+      "name": "Продал машину",
+      "sum": 1000,
+      "account_id": "3pdp6pk1bxl0v9rr4x",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "created_at": "2022-03-25T15:59:08.227Z"
+    },
+    {
+      "id": "3pdp6pk7vfl16nz5sw",
+      "type": "income",
+      "name": "Продал машину",
+      "sum": 1000,
+      "account_id": "3pdp6pk1bxl0v9rr4x",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "created_at": "2022-03-25T16:54:57.055Z"
     }
   ]
 }

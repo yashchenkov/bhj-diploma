@@ -29,7 +29,7 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    const crAcc = document.querySelector('.create-account');
+    const crAcc = this.element.querySelector('.create-account');
 
 
     crAcc.addEventListener('click', () => {
@@ -38,8 +38,8 @@ class AccountsWidget {
 
 
     this.element.addEventListener('click', (e) => {
-      if(e.path[1].classList.contains('account')) {
-        this.onSelectAccount(e.path[1]);
+      if(e.target.closest('.account')) {
+        this.onSelectAccount(e.target.closest('.account'));
       }
     })
   }
@@ -63,7 +63,7 @@ class AccountsWidget {
       }, (err, response) => {
         if(response.success) {
           this.clear();
-          console.log(response);
+          //console.log(response);
           response.data.forEach(elem => {
             this.renderItem(this.getAccountHTML(elem));
           })
@@ -98,7 +98,6 @@ class AccountsWidget {
     })
     element.classList.add('active');
 
-
     App.showPage('transactions', {account_id: element.dataset.id})
   }
 
@@ -109,7 +108,7 @@ class AccountsWidget {
    * */
   getAccountHTML(item){
     const str = 
-    `<li class="account" data-id=${item.user_id}>
+    `<li class="account" data-id=${item.id}>
         <a href="#">
           <span>${item.name}</span>
           <span>${item.sum}</span>

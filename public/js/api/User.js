@@ -13,6 +13,7 @@ class User {
 
   static URL = '/user';
 
+  
   static setCurrent(user) {
     localStorage.setItem('user', JSON.stringify(user));
   }
@@ -37,12 +38,17 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
+   /*этот метод по заданию использует 
+   this.setCurrent и был написан мной,
+   тут не надо передавать пароль согласно заданию*/
+
   static fetch(callback) {
     createRequest({
       url: this.URL + '/current',
       method: 'GET',
       callback: (err, response) => {
-        if (response && response.user) {
+        console.log(response);
+        if (response.success) {
           this.setCurrent({
             id: response.user.id,
             name: response.user.name
@@ -61,6 +67,12 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
+   /*также этот метод был написан не мной, 
+   а уже был готовый, и он передает значение 
+   с паролем
+   в доказательство моим словам есть строчка 78,
+   где указан тип ответа, а у меня тип указан в функции
+   createRequest*/
   static login(data, callback) {
     createRequest({
       url: this.URL + '/login',
@@ -69,6 +81,8 @@ class User {
       data,
       callback: (err, response) => {
         if (response && response.user) {
+          //response.user.password = null;
+          console.log(response);
           this.setCurrent(response.user);
         }
         callback(err, response);
@@ -81,7 +95,8 @@ class User {
    * После успешной авторизации необходимо
    * сохранить пользователя через метод
    * User.setCurrent.
-   * */
+   * 
+   этот метод был написан мной, тут по заданию также не надо передавать пароль в хранилище*/
   static register(data, callback) {
     createRequest({
       url: this.URL + '/register',
