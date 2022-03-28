@@ -42,7 +42,7 @@ class CreateTransactionForm extends AsyncForm {
    * в котором находится форма
    * */
   onSubmit(data) {
-    console.log(data);
+    console.log(this.element);
     Transaction.create(data, () => {
       if(this.element.id === 'new-income-form') {
         App.getModal('newIncome').close();

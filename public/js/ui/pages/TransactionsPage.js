@@ -33,13 +33,24 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-    const btnAcc = this.element.querySelector('.remove-account');
-    const btnTrans = this.element.querySelectorAll('.trasaction__remove');
+    const btnAcc = document.querySelectorAll('.remove-account');
+    const btnTrans = document.querySelectorAll('.trasaction__remove');
 
-    btnTrans.forEach(elem => {
+
+    document.addEventListener('click', e => {
+      console.log(e.target.closest('.transaction__remove'));
+      if(e.target.closest('.remove-account')) {
+        this.removeAccount();
+      } else if(e.target.closest('.transaction__remove')) {
+        this.removeTransaction(e.target.closest('.transaction__remove').dataset.id)
+      }
+    });
+    /*btnTrans.forEach(elem => {
       elem.addEventListener('click', this.removeTransaction(elem.dataset.id))
     });
-    btnAcc.addEventListener('click', this.removeAccount());
+    btnAcc.forEach(elem => {
+      elem.addEventListener('click', this.removeAccount());
+    });*/
   }
 
   /**
@@ -55,9 +66,7 @@ class TransactionsPage {
     if(this.lastOptions) {
       const result = window.confirm('Вы действительно хотите удалить счет?');
       if(result) {
-        Account.remove({
-          email: User.current().email
-        }, (err, response) => {
+        Account.remove({id: this.lastOptions.account_id}, (err, response) => {
           if(response.success) {
             App.updateWidgets();
             App.updateForms();
@@ -76,9 +85,7 @@ class TransactionsPage {
   removeTransaction( id ) {
     const result = window.confirm('Вы действительно хотите удалить эту транзакцию?');
     if(result) {
-      Transaction.remove({
-        email: User.current().email
-      }, (err, response) => {
+      Transaction.remove({id: id}, (err, response) => {
         if(response.success) {
           App.update();
         }
@@ -102,12 +109,8 @@ class TransactionsPage {
           this.renderTitle(response.data.name);
         }
       });
-      console.log(User.fetch())
       //вот тут непонятно, как нужный объект передать, так как нигде не хранится пароль
-      Transaction.list({
-        email: User.current().email,
-        password: User.current().password
-      }, (err, response) => {
+      Transaction.list(options, (err, response) => {
         if(response) {
           console.log(response);
           this.renderTransactions(response.data);
@@ -140,7 +143,7 @@ class TransactionsPage {
    * в формат «10 марта 2019 г. в 03:20»
    * */
   formatDate(date){
-    const data = Date.parse(date);
+    const data = new Date(Date.parse(date));
     const months = [
     'Января',
     'Февраля',
@@ -176,9 +179,9 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
-    console.log(item);
+    //console.log(item);
     let trClass;
-    if(item.type.toLowerCase() === 'exprense') {
+    if(item.type.toLowerCase() === 'expense') {
       trClass = 'transaction_expense';
     } else {
       trClass = 'transaction_income'
@@ -218,6 +221,7 @@ class TransactionsPage {
    * */
   renderTransactions(data){
     const content = this.element.querySelector('.content');
+    content.innerHTML = '';
     console.log(content)
 
     data.forEach(elem => {

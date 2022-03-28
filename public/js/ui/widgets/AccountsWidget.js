@@ -80,7 +80,7 @@ class AccountsWidget {
   clear() {
     const accs = this.element.querySelectorAll('.account');
     accs.forEach(elem => {
-      elem.style.display = '';
+      elem.remove();
     })
   }
 
