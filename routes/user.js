@@ -57,10 +57,11 @@ router.post("/login",upload.none(), function(request, response) {
     if(!!foundedUser){//если пользователь существует...
         request.session.id = foundedUser.id;
         //отправляется авторизованный пользователь
+        delete foundedUser.password;
         response.json({success: true, user: foundedUser});
     }
     else//если пользователь не существует, то отправляется ответ с ошибкой о ненахождении пользователя
-        response.json({success: false, error:`Пользователь c email ${email} и паролем ${password} не найден`});
+        response.json({success: false, error:`Пользователь c email ${email} и паролем указанным не найден`});
 })
 
 //запрос разлогина пользователя

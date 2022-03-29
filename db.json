@@ -30,11 +30,6 @@
       "id": "3"
     },
     {
-      "name": "тинк",
-      "user_id": "3pdp6pkyfl0trpxbr",
-      "id": "3pdp6pk1h2l0vagab2"
-    },
-    {
       "name": "сельхоз банк",
       "user_id": "3pdp6pkyfl0trpxbr",
       "id": "3pdp6pk2n7l0vchcvj"
@@ -43,6 +38,11 @@
       "name": "сбер",
       "user_id": "3pdp6pkyfl0trpxbr",
       "id": "3pdp6pk60ml1b258j1"
+    },
+    {
+      "name": "втб",
+      "user_id": "3pdp6pkyfl0trpxbr",
+      "id": "3pdp6pk20hl1cibx9g"
     }
   ],
   "transactions": [

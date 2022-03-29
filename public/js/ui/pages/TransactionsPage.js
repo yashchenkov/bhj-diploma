@@ -68,8 +68,7 @@ class TransactionsPage {
       if(result) {
         Account.remove({id: this.lastOptions.account_id}, (err, response) => {
           if(response.success) {
-            App.updateWidgets();
-            App.updateForms();
+            App.update();
           }
         });
       }
@@ -100,11 +99,9 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render(options){
-    //console.log(options);
     if(options) {
       this.lastOptions = options;
       Account.get(options.account_id, (err, response) => {
-        //console.log(response);
         if(response.success) {
           this.renderTitle(response.data.name);
         }
@@ -112,7 +109,6 @@ class TransactionsPage {
       //вот тут непонятно, как нужный объект передать, так как нигде не хранится пароль
       Transaction.list(options, (err, response) => {
         if(response) {
-          console.log(response);
           this.renderTransactions(response.data);
         }
       })
@@ -179,15 +175,9 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
-    //console.log(item);
-    let trClass;
-    if(item.type.toLowerCase() === 'expense') {
-      trClass = 'transaction_expense';
-    } else {
-      trClass = 'transaction_income'
-    }
+    let trClass = item.type.toLowerCase() === 'expense' ? 'transaction_expense' : 'transaction_income';
 
-   const data = `<div class="transaction ${trClass} row">
+    const data = `<div class="transaction ${trClass} row">
           <div class="col-md-7 transaction__details">
             <div class="transaction__icon">
                 <span class="fa fa-money fa-2x"></span>
@@ -222,7 +212,6 @@ class TransactionsPage {
   renderTransactions(data){
     const content = this.element.querySelector('.content');
     content.innerHTML = '';
-    console.log(content)
 
     data.forEach(elem => {
       content.insertAdjacentHTML('beforeend', this.getTransactionHTML(elem));

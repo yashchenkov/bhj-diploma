@@ -22,10 +22,9 @@ class CreateTransactionForm extends AsyncForm {
 
     if(User.current()) {
       Account.list({
-        email: User.current().email,
-        password: User.current().password
       }, (err, response) => {
         if(response.success) {
+          list.innerHTML = '';
           response.data.forEach(elem => {
             list.insertAdjacentHTML('beforeend', `
               <option value="${elem.id}">${elem.name}</option>`)

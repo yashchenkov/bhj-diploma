@@ -28,12 +28,11 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    for(let i = 0; i < this.element.querySelectorAll('button').length; i++) {
-      if(this.element.querySelectorAll('button')[i].dataset.dismiss === 'modal') {
-        this.element.querySelectorAll('button')[i].addEventListener('click', (e) => {
-          this.onClose(e);
-        })
-      }
+    console.log(this.element.querySelectorAll('.close'))
+    for(let i = 0; i < this.element.querySelectorAll('.close').length; i++) {
+      this.element.querySelectorAll('button')[i].addEventListener('click', (e) => {
+        this.onClose(e);
+      })
     }
   }
 

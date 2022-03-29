@@ -127,11 +127,7 @@ class User {
       callback: (err, response) => {
         console.log(response);
         if (response.success) {
-          let user = {
-            id: localStorage.user.id,
-            name: localStorage.user.name
-          }
-          this.unsetCurrent(user);
+          this.unsetCurrent();
         }
         callback(err, response);
       }
